@@ -54,34 +54,6 @@ ExportedObj/
 # Unity3D generated file on crash reports
 sysinfo.txt
 
-# Builds
-*.apk
-
-# Crashlytics generated file
-crashlytics-build.properties
-
 # JetBrains Rider
 .idea/
 
-# Ignore folder (art/vfx)
-Assets/SandboxAnimator/VfxTextures
-Assets/SandboxAnimator/VfxTextures.meta
-
-# Config
-remote_config_data
-
-# Other
-*.apple-bundle
-*.android-bundle
-*.apple-bundle.meta
-*.android-bundle.meta
-*.apple-bundle.manifest
-*.android-bundle.manifest
-
-# Artifacts
-Build-*/
-.artifacts/
-
-# SayKit
-Assets/Resources/saykit_attribution_settings.json
-Assets/Resources/saykit_attribution_settings.json.meta
