@@ -1,0 +1,23 @@
+{
+  "name": "sx.self.nvim-unity",
+  "version": "0.0.1-preview.1",
+  "displayName": "Neovim",
+  "description": "Neovim inegration for Unity.",
+  "unity": "2019.4",
+  "keywords": [
+    "editor",
+    "neovim"
+  ],
+  "author": {
+    "name": "Sergey Ivonchik",
+    "email": "si@whitesharx.com",
+    "url": "https://self.sx"
+  },
+  "homepage": "https://github.com/selfsx/nvim-unity",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/selfsx/nvim-unity.git"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
