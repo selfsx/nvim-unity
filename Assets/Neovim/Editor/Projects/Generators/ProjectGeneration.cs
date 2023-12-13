@@ -4,13 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
+using Packages.Rider.Editor;
 using Packages.Rider.Editor.Util;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   internal class ProjectGeneration : IGenerator
   {
@@ -107,10 +108,10 @@ namespace Packages.Rider.Editor.ProjectGeneration
     public bool SyncIfNeeded(IEnumerable<string> affectedFiles, IEnumerable<string> reimportedFiles, bool checkProjectFiles = false)
     {
       SetupSupportedExtensions();
-      
+
       PackageManagerTracker.SyncIfNeeded(checkProjectFiles);
 
-      if (HasFilesBeenModified(affectedFiles, reimportedFiles) || RiderScriptEditorData.instance.hasChanges 
+      if (HasFilesBeenModified(affectedFiles, reimportedFiles) || RiderScriptEditorData.instance.hasChanges
                                                                || RiderScriptEditorData.instance.HasChangesInCompilationDefines()
                                                                || (checkProjectFiles && LastWriteTracker.HasLastWriteTimeChanged()))
       {
@@ -205,14 +206,14 @@ namespace Packages.Rider.Editor.ProjectGeneration
         {
           allAssetProjectParts.TryGetValue(assembly.name, out var additionalAssetsForProject);
           projectParts.Add(new ProjectPart(assembly.name, assembly, additionalAssetsForProject));
-          visitedAssemblyNames.Add(assembly.name);  
+          visitedAssemblyNames.Add(assembly.name);
         }
       }
 
       var executingAssemblyName = typeof(ProjectGeneration).Assembly.GetName().Name;
       var riderAssembly = m_AssemblyNameProvider.GetAssemblies(_ => true).FirstOrDefault(a=>a.name == executingAssemblyName);
       var projectPartsWithoutAssembly = allAssetProjectParts.Where(a => !visitedAssemblyNames.Contains(a.Key));
-      projectParts.AddRange(projectPartsWithoutAssembly.Select(allAssetProjectPart => 
+      projectParts.AddRange(projectPartsWithoutAssembly.Select(allAssetProjectPart =>
         AddProjectPart(allAssetProjectPart.Key, riderAssembly, allAssetProjectPart.Value)));
 
       SyncSolution(projectParts.ToArray(), types);
@@ -562,10 +563,10 @@ namespace Packages.Rider.Editor.ProjectGeneration
 #elif UNITY_2022_2_OR_NEWER
         configFile = assembly.CompilerOptions.AnalyzerConfigPath; // https://docs.unity3d.com/2021.3/Documentation/ScriptReference/Compilation.ScriptCompilerOptions.AnalyzerConfigPath.html
 #endif
-      
+
       if (string.IsNullOrEmpty(configFile))
         return string.Empty;
-      
+
       var builder = new StringBuilder();
       builder.AppendLine("  <ItemGroup>");
       builder.AppendLine($"    <GlobalAnalyzerConfigFiles Include=\"{configFile}\" />");
@@ -631,9 +632,9 @@ namespace Packages.Rider.Editor.ProjectGeneration
     private string GenerateNullable(IEnumerable<string> enumerable)
     {
       var val = enumerable.FirstOrDefault();
-      if (string.IsNullOrWhiteSpace(val)) 
+      if (string.IsNullOrWhiteSpace(val))
         return string.Empty;
-      
+
       return $"{Environment.NewLine}    <Nullable>{val}</Nullable>";
     }
 
@@ -660,7 +661,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
           warningIds.Add(s);
         }
       }
-      
+
       warningIds.AddRange(argsPlus);
 
       returnValue += $@"    <TreatWarningsAsErrors>{allWarningsAsErrors}</TreatWarningsAsErrors>";
@@ -671,7 +672,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
 
       if (argsMinus.Any())
         returnValue += $"{Environment.NewLine}    <WarningsNotAsErrors>{string.Join(";", argsMinus)}</WarningsNotAsErrors>";
-      
+
       return $"{Environment.NewLine}{returnValue}";
     }
 
@@ -791,7 +792,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
     {
       var fileversion = "11.00";
       var vsversion = "2010";
-      
+
       var projectEntries = GetProjectEntries(islands);
       var projectConfigurations = string.Join(Environment.NewLine,
         islands.Select(i => GetProjectActiveConfigurations(ProjectGuid(m_AssemblyNameProvider.GetProjectName(i.Name, i.Defines)))).ToArray());
@@ -901,7 +902,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
       var propertyInfo = type.GetProperty("suppressCommonWarnings");
       if (propertyInfo != null && propertyInfo.GetValue(null) is bool && (bool)propertyInfo.GetValue(null))
       {
-        codes.AddRange(new[] {"0169", "0649"});  
+        codes.AddRange(new[] {"0169", "0649"});
       }
 #elif UNITY_2020_2_OR_NEWER
       if (PlayerSettings.suppressCommonWarnings)
@@ -913,7 +914,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
 
       return string.Join(",", codes.Distinct());
     }
-    
+
     private string GetProjectEntries(ProjectPart[] islands)
     {
       var projectEntries = islands.Select(i => string.Format(

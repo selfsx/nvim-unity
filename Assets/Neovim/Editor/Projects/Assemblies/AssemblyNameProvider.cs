@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEditor.PackageManager;
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   internal class AssemblyNameProvider : IAssemblyNameProvider
   {

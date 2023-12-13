@@ -1,6 +1,6 @@
 using System;
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   [Flags]
   enum ProjectGenerationFlag

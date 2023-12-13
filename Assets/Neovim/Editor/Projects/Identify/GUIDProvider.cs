@@ -1,4 +1,4 @@
-namespace Packages.Rider.Editor.ProjectGeneration {
+namespace Neovim.Editor.Projects {
   class GUIDProvider : IGUIDGenerator
   {
     public string ProjectGuid(string name)

@@ -1,10 +1,11 @@
 using System.IO;
+using Packages.Rider.Editor;
 
 #if UNITY_2020_1_OR_NEWER
 using UnityEditor.PackageManager;
 #endif
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   internal static class PackageManagerTracker
   {

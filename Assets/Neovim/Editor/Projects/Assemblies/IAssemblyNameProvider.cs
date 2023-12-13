@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor.Compilation;
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   internal interface IAssemblyNameProvider
   {

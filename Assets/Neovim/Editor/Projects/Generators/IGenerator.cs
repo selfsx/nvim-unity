@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   internal interface IGenerator
   {

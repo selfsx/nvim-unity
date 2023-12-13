@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor.Compilation;
 using UnityEngine;
 
-namespace Packages.Rider.Editor.ProjectGeneration
+namespace Neovim.Editor.Projects
 {
   internal class ProjectPart
   {

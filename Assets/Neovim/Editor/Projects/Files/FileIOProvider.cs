@@ -4,7 +4,7 @@ using System.Security;
 using System.Text;
 using Packages.Rider.Editor.Util;
 
-namespace Packages.Rider.Editor.ProjectGeneration {
+namespace Neovim.Editor.Projects {
   class FileIOProvider : IFileIO
   {
     public bool Exists(string fileName)
