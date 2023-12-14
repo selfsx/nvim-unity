@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Security;
 using System.Text;
-using Packages.Rider.Editor.Util;
+using Neovim.Editor.Utils;
 
 namespace Neovim.Editor.Projects {
   internal class FileIOProvider : IFileIO {

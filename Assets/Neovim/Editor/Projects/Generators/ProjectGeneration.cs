@@ -5,8 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security;
 using System.Text;
-using Packages.Rider.Editor;
-using Packages.Rider.Editor.Util;
+using Neovim.Editor.Utils;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEditorInternal;
@@ -14,7 +13,7 @@ using UnityEngine;
 using Assembly = UnityEditor.Compilation.Assembly;
 
 namespace Neovim.Editor.Projects {
-  internal class ProjectGeneration : IGenerator {
+  internal class ProjectGeneration {
     private enum ScriptingLanguage {
       None,
       CSharp
@@ -73,7 +72,7 @@ namespace Neovim.Editor.Projects {
     private const string k_BaseDirectory = ".";
     private const string k_TargetLanguageVersion = "latest";
 
-    IAssemblyNameProvider IGenerator.AssemblyNameProvider => m_AssemblyNameProvider;
+
 
     public ProjectGeneration()
         : this(Directory.GetParent(Application.dataPath).FullName) { }
@@ -274,7 +273,7 @@ namespace Neovim.Editor.Projects {
             assemblyName = fallbackAssemblyName;
           }
 
-          assemblyName = FileSystemUtil.FileNameWithoutExtension(assemblyName);
+          assemblyName = assemblyName.FileNameWithoutExtension();
 
           if (!stringBuilders.TryGetValue(assemblyName, out var projectBuilder)) {
             projectBuilder = new StringBuilder();
@@ -294,7 +293,7 @@ namespace Neovim.Editor.Projects {
             assemblyName = fallbackAssemblyName;
           }
 
-          assemblyName = FileSystemUtil.FileNameWithoutExtension(assemblyName);
+          assemblyName = assemblyName.FileNameWithoutExtension();
 
           if (!stringBuilders.TryGetValue(assemblyName, out var projectBuilder)) {
             projectBuilder = new StringBuilder();
@@ -473,7 +472,7 @@ namespace Neovim.Editor.Projects {
 
     private string ProjectText(ProjectPart assembly) {
       var responseFilesData =
-          assembly.ParseResponseFileData(m_AssemblyNameProvider, ProjectDirectory).ToList();
+          assembly.Assembly.ParseResponseFileData(ProjectDirectory).ToList();
       var projectBuilder = new StringBuilder(ProjectHeader(assembly, responseFilesData));
 
       foreach (var file in assembly.SourceFiles) {
@@ -498,7 +497,7 @@ namespace Neovim.Editor.Projects {
         AppendReference(fullReference, projectBuilder);
       }
 
-      if (0 < assembly.AssemblyReferences.Length) {
+      if (assembly.AssemblyReferences.Any()) {
         projectBuilder.Append("  </ItemGroup>").Append(Environment.NewLine);
         projectBuilder.Append("  <ItemGroup>").Append(Environment.NewLine);
         foreach (var reference in assembly.AssemblyReferences.Where(i =>
@@ -526,7 +525,7 @@ namespace Neovim.Editor.Projects {
       var escapedFullPath = SecurityElement.Escape(fullReference);
       escapedFullPath = escapedFullPath.NormalizePath();
       projectBuilder.Append("     <Reference Include=\"")
-          .Append(FileSystemUtil.FileNameWithoutExtension(escapedFullPath))
+          .Append(escapedFullPath.FileNameWithoutExtension())
           .Append("\">").Append(Environment.NewLine);
       projectBuilder.Append("     <HintPath>").Append(escapedFullPath).Append("</HintPath>")
           .Append(Environment.NewLine);
@@ -1105,6 +1104,10 @@ namespace Neovim.Editor.Projects {
       return m_GUIDGenerator.ProjectGuid(m_ProjectName + name);
     }
 
+
+
+
+
     private bool HasFilesBeenModified(IEnumerable<string> affectedFiles, IEnumerable<string> reimportedFiles) {
       return affectedFiles.Any(ShouldFileBePartOfSolution)
           || reimportedFiles.Any(ShouldSyncOnReimportedAsset);
@@ -1115,6 +1118,10 @@ namespace Neovim.Editor.Projects {
       return extension == ".asmdef" || extension == ".asmref"
           || Path.GetFileName(asset) == "csc.rsp";
     }
+
+
+
+
 
   }
 }
