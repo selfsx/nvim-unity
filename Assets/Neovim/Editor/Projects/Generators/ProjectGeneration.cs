@@ -97,14 +97,14 @@ namespace Neovim.Editor.Projects {
     public bool SyncIfNeeded(IEnumerable<string> affectedFiles, IEnumerable<string> reimportedFiles, bool checkProjectFiles = false) {
       SetupSupportedExtensions();
 
-      PackageManagerTracker.SyncIfNeeded(checkProjectFiles);
-
-      if (!HasFilesBeenModified(affectedFiles, reimportedFiles)
-          && !RiderScriptEditorData.instance.hasChanges
-          && !RiderScriptEditorData.instance.HasChangesInCompilationDefines()
-          && (!checkProjectFiles || !LastWriteTracker.HasLastWriteTimeChanged())) {
-        return false;
-      }
+      // PackageManagerTracker.SyncIfNeeded(checkProjectFiles);
+      //
+      // if (!HasFilesBeenModified(affectedFiles, reimportedFiles)
+      //     && !RiderScriptEditorData.instance.hasChanges
+      //     && !RiderScriptEditorData.instance.HasChangesInCompilationDefines()
+      //     && (!checkProjectFiles || !LastWriteTracker.HasLastWriteTimeChanged())) {
+      //   return false;
+      // }
 
       Sync();
       return true;
@@ -133,8 +133,8 @@ namespace Neovim.Editor.Projects {
       m_AssemblyNameProvider.ResetPackageInfoCache();
       m_AssemblyNameProvider.ResetAssembliesCache();
 
-      RiderScriptEditorData.instance.hasChanges = false;
-      RiderScriptEditorData.instance.InvalidateSavedCompilationDefines();
+      // RiderScriptEditorData.instance.hasChanges = false;
+      // RiderScriptEditorData.instance.InvalidateSavedCompilationDefines();
     }
 
 

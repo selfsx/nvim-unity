@@ -16,7 +16,7 @@ namespace Neovim.Editor.Projects {
 
     public void WriteAllText(string path, string content) {
       File.WriteAllText(path, content, Encoding.UTF8);
-      LastWriteTracker.UpdateLastWriteIfNeeded(path);
+      // LastWriteTracker.UpdateLastWriteIfNeeded(path);
     }
 
     public string EscapedRelativePathFor(string file, string projectDirectory) {
