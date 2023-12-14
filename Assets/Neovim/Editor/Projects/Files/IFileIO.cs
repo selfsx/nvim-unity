@@ -1,7 +1,5 @@
-namespace Neovim.Editor.Projects
-{
-  internal interface IFileIO
-  {
+namespace Neovim.Editor.Projects {
+  internal interface IFileIO {
     bool Exists(string fileName);
 
     string ReadAllText(string fileName);

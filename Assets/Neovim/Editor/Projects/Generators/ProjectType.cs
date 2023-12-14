@@ -1,10 +1,8 @@
 using System;
 
-namespace Neovim.Editor.Projects
-{
+namespace Neovim.Editor.Projects {
   [Flags]
-  enum ProjectGenerationFlag
-  {
+  internal enum ProjectType {
     None = 0,
     Embedded = 1,
     Local = 2,

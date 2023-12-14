@@ -5,26 +5,21 @@ using System.Text;
 using Packages.Rider.Editor.Util;
 
 namespace Neovim.Editor.Projects {
-  class FileIOProvider : IFileIO
-  {
-    public bool Exists(string fileName)
-    {
+  internal class FileIOProvider : IFileIO {
+    public bool Exists(string fileName) {
       return File.Exists(fileName);
     }
 
-    public string ReadAllText(string fileName)
-    {
+    public string ReadAllText(string fileName) {
       return File.ReadAllText(fileName);
     }
 
-    public void WriteAllText(string path, string content)
-    {
+    public void WriteAllText(string path, string content) {
       File.WriteAllText(path, content, Encoding.UTF8);
       LastWriteTracker.UpdateLastWriteIfNeeded(path);
     }
 
-    public string EscapedRelativePathFor(string file, string projectDirectory)
-    {
+    public string EscapedRelativePathFor(string file, string projectDirectory) {
       var projectDir = Path.GetFullPath(projectDirectory);
 
       // We have to normalize the path, because the PackageManagerRemapper assumes
@@ -35,11 +30,10 @@ namespace Neovim.Editor.Projects {
       return SecurityElement.Escape(path);
     }
 
-    private static string SkipPathPrefix(string path, string prefix)
-    {
-      return path.StartsWith($@"{prefix}{Path.DirectorySeparatorChar}", StringComparison.Ordinal)
-        ? path.Substring(prefix.Length + 1)
-        : path;
+    private static string SkipPathPrefix(string path, string prefix) {
+      return path.StartsWith($"{prefix}{Path.DirectorySeparatorChar}", StringComparison.Ordinal)
+          ? path.Substring(prefix.Length + 1)
+          : path;
     }
   }
 }
