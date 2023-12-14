@@ -1,3 +1,16 @@
 {
-	"name": "Neovim.Editor"
+    "name": "Neovim.Editor",
+    "rootNamespace": "Neovim.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
