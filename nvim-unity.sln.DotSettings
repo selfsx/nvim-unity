@@ -153,4 +153,5 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=poolable/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Prebooster/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Preboosters/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Prefs/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=prsent/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

@@ -18,8 +18,29 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Neovim.Editor {
-  public class NeovimProxy {
+using System.Collections.Generic;
+using System.Reflection;
+using Unity.CodeEditor;
 
+namespace Neovim.Editor {
+  public static class CodeEditorExtensions {
+    public static IEnumerable<IExternalCodeEditor> AsRegisteredEditors(this CodeEditor editor) {
+      var type = editor.GetType();
+
+      var field = type.GetField("m_ExternalCodeEditors",
+          BindingFlags.NonPublic | BindingFlags.Instance);
+
+      if (field == null) {
+        return new List<IExternalCodeEditor>();
+      }
+
+      return field.GetValue(editor) as List<IExternalCodeEditor>;
+    }
+
+    // TODO: Implement.
+    public static ProxyType AsProxyType(this IExternalCodeEditor editor) {
+      var className = editor.GetType().Name;
+      return className == "RiderScriptEditor" ? ProxyType.JetBrainsRider : ProxyType.Auto;
+    }
   }
 }

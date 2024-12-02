@@ -33,6 +33,9 @@ namespace Neovim.Editor {
       Logger.Debug("Registering...");
 
       CodeEditor.Register(new Neovim());
+
+      var proxy = new VisualStudioCodeProxy(Logger);
+      proxy.Activate();
     }
 
     public bool TryGetInstallationForPath(string editorPath,
