@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Sergey Ivonchik
+// Copyright (c) 2024 Sergey Ivonchik
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,42 +18,8 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.IO;
+namespace Neovim.Editor {
+  public class NeovimProxy {
 
-namespace Neovim.Editor.Utils {
-  public static class StringExtensions {
-    public static string FileNameWithoutExtension(this string path) {
-      if (string.IsNullOrEmpty(path)) {
-        return string.Empty;
-      }
-
-      var indexOfDot = -1;
-      var indexOfSlash = 0;
-
-      for (var i = path.Length - 1; i >= 0; i--) {
-        if (indexOfDot == -1 && path[i] == '.') {
-          indexOfDot = i;
-        }
-
-        if (path[i] != '/' && path[i] != '\\') {
-          continue;
-        }
-
-        indexOfSlash = i + 1;
-        break;
-      }
-
-      if (indexOfDot == -1) {
-        indexOfDot = path.Length;
-      }
-
-      return path.Substring(indexOfSlash, indexOfDot - indexOfSlash);
-    }
-
-    public static string NormalizePath(this string path) {
-      return path.Replace(Path.DirectorySeparatorChar == '\\'
-          ? '/'
-          : '\\', Path.DirectorySeparatorChar);
-    }
   }
 }

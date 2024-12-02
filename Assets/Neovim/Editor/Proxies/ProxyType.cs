@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Sergey Ivonchik
+// Copyright (c) 2024 Sergey Ivonchik
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,19 +18,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
-
-namespace Neovim.Editor.Projects {
-  [Flags]
-  internal enum ProjectType {
-    None = 0,
-    Embedded = 1,
-    Local = 2,
-    Registry = 4,
-    Git = 8,
-    BuiltIn = 16,
-    Unknown = 32,
-    PlayerAssemblies = 64,
-    LocalTarBall = 128,
+namespace Neovim.Editor {
+  public enum ProxyType {
+    Auto,
+    VisualStudioCode,
+    JetBrainsRider
   }
 }
