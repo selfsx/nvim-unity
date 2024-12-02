@@ -50,14 +50,57 @@ namespace Neovim.Editor {
     }
 
     public void OnGUI() {
+      EditorGUILayout.Space();
       EditorGUILayout.LabelField("Neovim Plugin Configuration", EditorStyles.boldLabel);
+      EditorGUILayout.Space();
 
+      var labelWidth = GUILayout.Width(120);
+      var fieldWidth = GUILayout.Width(150);
+      var buttonWidth = GUILayout.Width(120);
+
+      // XXX: Host
       EditorGUILayout.BeginHorizontal();
-      EditorGUILayout.LabelField("Plugin Server Port:", GUILayout.Width(150));
-
-      Prefs.Port = EditorGUILayout.TextField(Prefs.Port);
-
+      EditorGUILayout.LabelField("Server Host:", labelWidth);
+      Prefs.Host = EditorGUILayout.TextField(Prefs.Host, fieldWidth);
       EditorGUILayout.EndHorizontal();
+
+      // XXX: Port
+      EditorGUILayout.BeginHorizontal();
+      EditorGUILayout.LabelField("Server Port:", labelWidth);
+      Prefs.Port = EditorGUILayout.TextField(Prefs.Port, fieldWidth);
+      EditorGUILayout.EndHorizontal();
+
+      // XXX: LogLevel
+      EditorGUILayout.BeginHorizontal();
+      EditorGUILayout.LabelField("Log Level:", labelWidth);
+      Prefs.LogLevel = (LevelType)EditorGUILayout.EnumPopup(Prefs.LogLevel, fieldWidth);
+      EditorGUILayout.EndHorizontal();
+
+      // XXX: Proxy Plugins
+      EditorGUILayout.BeginHorizontal();
+      EditorGUILayout.LabelField("Proxy Plugins:", labelWidth);
+      EditorGUILayout.TextField("Unknown", Styles.Labels.Unknown);
+      EditorGUILayout.EndHorizontal();
+
+      // XXX: Current Proxy
+      EditorGUILayout.BeginHorizontal();
+      EditorGUILayout.LabelField("Current Proxy:", labelWidth);
+      Prefs.ProxyPlugin = (ProxyType)EditorGUILayout.EnumPopup(Prefs.ProxyPlugin, fieldWidth);
+      EditorGUILayout.EndHorizontal();
+
+      // XXX: Server Status
+      EditorGUILayout.BeginHorizontal();
+      EditorGUILayout.LabelField("Server Status:", labelWidth);
+      EditorGUILayout.TextField("Unknown", Styles.Labels.Unknown);
+      EditorGUILayout.EndHorizontal();
+
+      EditorGUILayout.Space();
+
+      if (GUILayout.Button("Restart Server", buttonWidth)) {
+        RestartServerImpl();
+      }
+
+      EditorGUILayout.Space();
     }
 
     public void SyncIfNeeded(string[] addedFiles, string[] deletedFiles, string[] movedFiles,
@@ -76,6 +119,11 @@ namespace Neovim.Editor {
     public bool OpenProject(string filePath = "", int line = -1, int column = -1) {
       Logger.Debug($"OpenProject: {filePath} at line {line}, column {column}");
       return false;
+    }
+
+    private void RestartServerImpl() {
+      Logger.Debug("Restarting server...");
+      // TODO: Implement.
     }
 
     public CodeEditor.Installation[] Installations {
