@@ -28,14 +28,18 @@ namespace Neovim.Editor {
     private static readonly ILogger Logger;
     private static readonly NeovimPreferences Prefs = new NeovimPreferences();
 
+    private readonly IProxy _currentProxy;
+
     static Neovim() {
       Logger = new UnityLoggerImpl(Prefs.LogLevel);
       Logger.Debug("Registering...");
 
       CodeEditor.Register(new Neovim());
+    }
 
-      var proxy = new VisualStudioCodeProxy(Logger);
-      proxy.Activate();
+    public Neovim() {
+      _currentProxy = new VisualStudioCodeProxy(Logger);
+      _currentProxy.Activate();
     }
 
     public bool TryGetInstallationForPath(string editorPath,
@@ -108,19 +112,20 @@ namespace Neovim.Editor {
 
     public void SyncIfNeeded(string[] addedFiles, string[] deletedFiles, string[] movedFiles,
         string[] movedFromFiles, string[] importedFiles) {
-      Logger.Debug("SyncIfNeeded...");
+      _currentProxy.SyncIfNeeded(addedFiles, deletedFiles,
+          movedFiles, movedFromFiles, importedFiles);
     }
 
     public void SyncAll() {
-      Logger.Debug("SyncAll...");
+      _currentProxy.SyncAll();
     }
 
     public void Initialize(string editorInstallationPath) {
-      Logger.Debug($"Initializing Neovim at {editorInstallationPath}...");
+      _currentProxy.Initialize(editorInstallationPath);
     }
 
     public bool OpenProject(string filePath = "", int line = -1, int column = -1) {
-      Logger.Debug($"OpenProject: {filePath} at line {line}, column {column}");
+      Logger.Warning($"NotSupported: open_project({filePath}, {line}:{column}");
       return false;
     }
 

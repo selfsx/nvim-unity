@@ -47,7 +47,7 @@ namespace Neovim.Editor {
 
       if (null != registeredOpt) {
         _instance = registeredOpt;
-        _logger.Debug("[VsCodeProxy]: Found registered instance.");
+        _logger.Debug("VisualStudioCodeProxy: Found registered instance.");
 
         Active = true;
         return;
@@ -58,7 +58,7 @@ namespace Neovim.Editor {
           .FirstOrDefault(a => a.GetName().Name == "Unity.VSCode.Editor");
 
       if (null == assembly) {
-        _logger.Debug("[VsCodeProxy]: Assembly not found.");
+        _logger.Debug("VisualStudioCodeProxy: Assembly not found.");
         return;
       }
 
@@ -93,27 +93,38 @@ namespace Neovim.Editor {
             });
 
         _instance = vscodeEditorInstance as IExternalCodeEditor;
-        _logger.Debug("[VsCodeProxy]: Successfully created instance.");
+        _logger.Debug("VisualStudioCodeProxy: Successfully created instance.");
 
         Active = true;
       } catch (Exception e) {
-        _logger.Error("[VsCodeProxy]: Failed to activate...");
+        _logger.Error("VisualStudioCodeProxy: Failed to activate...");
         _logger.Error(e);
       }
     }
 
     public void Initialize(string editorInstallationPath) {
+      _logger.Debug($"VisualStudioCodeProxy: Initialize... {editorInstallationPath}");
       _instance?.Initialize(editorInstallationPath);
+
       Initialized = true;
     }
 
     public void SyncIfNeeded(string[] addedFiles, string[] deletedFiles, string[] movedFiles,
         string[] movedFromFiles, string[] importedFiles) {
+      var added = null != addedFiles ? string.Join(", ", addedFiles) : "None";
+      var deleted = null != deletedFiles ? string.Join(", ", deletedFiles) : "None";
+      var moved = null != movedFiles ? string.Join(", ", movedFiles) : "None";
+      var movedFrom = null != movedFromFiles ? string.Join(", ", movedFromFiles) : "None";
+
+      _logger.Debug("VisualStudioCodeProxy: SyncIfNeeded... "
+          + $"added: {added}, deleted: {deleted}, moved: {moved}, movedFrom: {movedFrom}");
+
       _instance?.SyncIfNeeded(addedFiles, deletedFiles, movedFiles,
           movedFromFiles, importedFiles);
     }
 
     public void SyncAll() {
+      _logger.Debug("VisualStudioCodeProxy: SyncAll...");
       _instance?.SyncAll();
     }
 
