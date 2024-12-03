@@ -7,8 +7,92 @@ indent_size = 2
 
 [*.cs]
 
-end_of_line = lf
-charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = 100
+
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# Braces and new line settings
+csharp_new_line_before_open_brace = none
+csharp_new_line_before_catch = false
+csharp_new_line_before_else = false
+csharp_new_line_before_finally = false
+csharp_new_line_before_members_in_object_initializers = false
+csharp_new_line_before_members_in_anonymous_types = false
+csharp_new_line_between_query_expression_clauses = true
+
+# Wrapping and formatting
+csharp_indent_switch_labels = true
+csharp_indent_case_contents = true
+csharp_indent_labels = flush_left
+csharp_preserve_single_line_blocks = false
+csharp_preserve_single_line_statements = false
+
+# Braces and spacing
+dotnet_style_require_accessibility_modifiers = always:warning
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators = always_for_clarity:suggestion
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_qualification_for_property = false:warning
+dotnet_style_qualification_for_method = false:warning
+dotnet_style_qualification_for_event = false:warning
+
+dotnet_style_prefer_var_for_built_in_types = true:warning
+dotnet_style_prefer_var_when_type_is_apparent = true:warning
+dotnet_style_prefer_var_elsewhere = true:warning
+
+csharp_style_var_for_built_in_types = true
+csharp_style_var_for_built_in_types = true
+csharp_style_var_when_type_is_apparent = true
+
+# Suppress "Expression value is never used"
+dotnet_diagnostic.IDE0058.severity = none
+
+# Suppress "new expression can be simplified"
+dotnet_diagnostic.IDE0090.severity = none
+
+# Suppress "Use var..."
+dotnet_diagnostic.IDE0007.severity = none
+dotnet_diagnostic.IDE0008.severity = none
+
+# Naming conventions
+
+# PascalCase for classes, methods, enumerations, public fields, public properties, and namespaces
+dotnet_naming_rule.pascal_case_elements.severity = warning
+dotnet_naming_rule.pascal_case_elements.symbols = pascal_case_elements
+dotnet_naming_rule.pascal_case_elements.style = pascal_case
+
+dotnet_naming_symbols.pascal_case_elements.applicable_accessibilities = public
+dotnet_naming_symbols.pascal_case_elements.applicable_kinds = class,method,enum,property,namespace,field
+
+# camelCase for local variables and parameters
+dotnet_naming_rule.camel_case_locals_and_parameters.severity = warning
+dotnet_naming_rule.camel_case_locals_and_parameters.symbols = locals_and_parameters
+dotnet_naming_rule.camel_case_locals_and_parameters.style = camel_case
+
+dotnet_naming_symbols.locals_and_parameters.applicable_accessibilities = *
+dotnet_naming_symbols.locals_and_parameters.applicable_kinds = local,parameter
+
+# _camelCase for private, protected, internal, and protected internal fields and properties
+dotnet_naming_rule.underscore_camel_case_private_fields_and_properties.severity = warning
+dotnet_naming_rule.underscore_camel_case_private_fields_and_properties.symbols = private_fields_and_properties
+dotnet_naming_rule.underscore_camel_case_private_fields_and_properties.style = underscore_camel_case
+
+dotnet_naming_symbols.private_fields_and_properties.applicable_accessibilities = private,protected,internal,protected_internal
+dotnet_naming_symbols.private_fields_and_properties.applicable_kinds = field,property
+
+# Interfaces must start with I (e.g., IInterface)
+dotnet_naming_rule.interface_names_start_with_i.severity = warning
+dotnet_naming_rule.interface_names_start_with_i.symbols = interfaces
+dotnet_naming_rule.interface_names_start_with_i.style = interface_prefix
+
+dotnet_naming_symbols.interfaces.applicable_accessibilities = *
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+
+dotnet_naming_style.interface_prefix.required_prefix = I
+

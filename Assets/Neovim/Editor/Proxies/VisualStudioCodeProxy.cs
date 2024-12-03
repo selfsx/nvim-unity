@@ -111,10 +111,17 @@ namespace Neovim.Editor {
 
     public void SyncIfNeeded(string[] addedFiles, string[] deletedFiles, string[] movedFiles,
         string[] movedFromFiles, string[] importedFiles) {
-      var added = null != addedFiles ? string.Join(", ", addedFiles) : "None";
-      var deleted = null != deletedFiles ? string.Join(", ", deletedFiles) : "None";
-      var moved = null != movedFiles ? string.Join(", ", movedFiles) : "None";
-      var movedFrom = null != movedFromFiles ? string.Join(", ", movedFromFiles) : "None";
+      var added = null != addedFiles
+          && addedFiles.Length != 0 ? string.Join(", ", addedFiles) : "None";
+
+      var deleted = null != deletedFiles
+          && deletedFiles.Length != 0 ? string.Join(", ", deletedFiles) : "None";
+
+      var moved = null != movedFiles
+          && movedFiles.Length != 0 ? string.Join(", ", movedFiles) : "None";
+
+      var movedFrom = null != movedFromFiles
+          && movedFromFiles.Length != 0 ? string.Join(", ", movedFromFiles) : "None";
 
       _logger.Debug("VisualStudioCodeProxy: SyncIfNeeded... "
           + $"added: {added}, deleted: {deleted}, moved: {moved}, movedFrom: {movedFrom}");
@@ -130,8 +137,12 @@ namespace Neovim.Editor {
 
     public ProxyType Type => ProxyType.VisualStudioCode;
 
-    public bool Active { get; private set; }
+    public bool Active {
+      get; private set;
+    }
 
-    public bool Initialized { get; private set; }
+    public bool Initialized {
+      get; private set;
+    }
   }
 }
